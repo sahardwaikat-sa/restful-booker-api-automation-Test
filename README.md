@@ -11,8 +11,7 @@ case matrix, defect log, and Requirements Traceability Matrix (RTM).
 
 This was a 3-person QA team project testing the full Restful Booker API — authentication,
 booking CRUD, and health checks — combining manual test design (Excel test case matrix, RTM,
-defect log) with Postman-based execution and a Python/pytest automation layer.
-
+defect log) with Postman-based execution 
 This repo preserves the team's original deliverables and adds an automated regression suite on
 top of them, mapping each automated test back to its Requirement ID, Test Case ID, and (where
 applicable) Defect ID.
@@ -101,4 +100,4 @@ Aspiring QA Engineer with hands-on training in manual and automation testing fro
 QA bootcamp. Background includes 9+ years of professional experience in process optimization,
 systems implementation, and cross-functional collaboration. PMP-certified.
 
-[LinkedIn](https://linkedin.com/in/sahardwaikat) | sahar.dwaikat@gmail.com
+[LinkedIn](www.linkedin.com/in/sahar-dwikatt) | sahar.dwaikat@gmail.com
