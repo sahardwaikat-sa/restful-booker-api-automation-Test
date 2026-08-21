@@ -1,0 +1,2982 @@
+{
+  "info": {
+    "_postman_id": "d153bd3c-9d80-4928-8bb6-d7db405dd273",
+    "name": "Sahar",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56853679",
+    "_collection_link": "https://go.postman.co/collection/56853679-d153bd3c-9d80-4928-8bb6-d7db405dd273?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Booking Retrieval – GET",
+      "item": [
+        {
+          "name": "Get all booking IDs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Retrevied all data Successfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "  \r",
+                  "});\r",
+                  "pm.test(\"Retrieved data is an array\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Array contains at least ONE elements\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.lengthOf.at.least(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"bookingid is integer\",function(){\r",
+                  "    pm.expect(pm.response.json()[0].bookingid).to.be.a('number');\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking by valid ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200, Data was retrieved successfully \", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"data type fields is right \" ,function(){\r",
+                  "    pm.expect(pm.response.json()).to.have.property('firstname').to.be.a('string');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('lastname').to.be.a('string');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('totalprice').to.be.a('number');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('depositpaid').to.be.a('boolean');\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.environment.set(\"firstname\", pm.response.json().firstname);\r",
+                  "pm.environment.set(\"lastname\", pm.response.json().lastname);\r",
+                  "pm.environment.set(\"totalprice\",pm.response.json().totalprice);\r",
+                  "pm.environment.set(\"depositpaid\", pm.response.json().depositpaid);\r",
+                  "pm.environment.set(\"checkin\", pm.response.json().bookingdates.checkin);\r",
+                  "pm.environment.set(\"checkout\", pm.response.json().bookingdates.checkout);\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by valid firstname",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"array not empty \",function(){\r",
+                  "    pm.expect(pm.response.json()).to.have.length.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?firstname=Jim",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": "Jim"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking by non-existent ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"NO data found and the status code 404 \", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/999999999999999999",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "999999999999999999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking with ID = 0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"  (0 is not a valid assigned booking ID)/Status 404 Not Found \", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/0",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by valid lastname",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"response statuse is 200\",function()\r",
+                  "{\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"the array not empty \",function(){\r",
+                  "    pm.expect(pm.response.json()).to.have.length.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?lastname=Brown",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "lastname",
+                  "value": "Brown"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by firstname AND lastname",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test (\"the startuse responed 200, retrived data matched with first name and last name \", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?firstname=Jim&lastname=Brown",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": "Jim"
+                },
+                {
+                  "key": "lastname",
+                  "value": "Brown"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by checkin date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"returned bookings have checkin date on/after 2022-01-01\",function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    });\r",
+                  "\r",
+                  "    "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkin=2022-01-01",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkin",
+                  "value": "2022-01-01"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by checkout date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"returned bookings have checkout date on/before 2022-01-31 \"\r",
+                  "    , function () {\r",
+                  "        pm.response.to.have.status(200);\r",
+                  "    });\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkout=2022-01-31",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkout",
+                  "value": "2022-01-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by checkin AND checkout range",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"only bookings within the date range are returned\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    });\r",
+                  "\r",
+                  "    \r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkin=2016-04-25&checkout=2024-06-17",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkin",
+                  "value": "2016-04-25"
+                },
+                {
+                  "key": "checkout",
+                  "value": "2024-06-17"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter with checkin date after checkout date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"  status  should give us bad request \" ,function(){\r",
+                  "    pm.expect(pm.response.code).to.equal(400);\r",
+                  "\r",
+                  "    });\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkin=2024-06-17&checkout=2016-04-25",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkin",
+                  "value": "2024-06-17"
+                },
+                {
+                  "key": "checkout",
+                  "value": "2016-04-25"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking using non-numeric ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test(\"Response body is Not Found\", function () {",
+                  "    pm.expect(pm.response.text()).to.eql(\"Not Found\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/sahar",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "sahar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter bookings by invalid date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response body contains Bad request\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\" Bad request\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\" Invalid date format returns 500 instead of 400\", function () {\r",
+                  "    pm.expect(pm.response.code).to.equal(400);\r",
+                  "});\r",
+                  " \r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkin=2026-13-45",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkin",
+                  "value": "2026-13-45"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking with maximum integer ID boundary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"NO DATA FOUND\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Not Found\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status code is 404, NO DATA FOUND\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/2147483647777777777",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "2147483647777777777"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search with a name that does not exist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\" response body is an empty array []  \", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.lengthOf(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?firstname=xayaaygyg",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": "xayaaygyg"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking with negative ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"NO DATA FOUND\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Not Found\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"STATUS CODE IS 404\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(404);\r",
+                  "    });"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/-2",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "-2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking with unsupported HTTP method",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"no data found in response body\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Not Found\");\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/1",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter with empty firstname value",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"returned data is an array\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"returned data length is 0 or more\", function () {\r",
+                  "    pm.expect(pm.response.json().length).to.be.at.least(0);\r",
+                  "});\r",
+                  "\r",
+                  "    \r",
+                  "\r",
+                  " \r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?firstname=",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter with different  date format",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Bad Request no data retrieved\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(500);\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Internal Server Error\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?checkin=18-08-2026",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "checkin",
+                  "value": "18-08-2026"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate bookingid list contains only integers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('booking id is integers and greater than 0', function () {\r",
+                  "    pm.expect(pm.response.json()[0].bookingid).to.be.an('number');\r",
+                  "    pm.expect(pm.response.json()[0].bookingid).to.be.greaterThan(0);\r",
+                  "    pm.expect(pm.response.json()[1].bookingid).to.be.an('number');\r",
+                  "    pm.expect(pm.response.json()[1].bookingid).to.be.greaterThan(0);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"response contains booking ids integer type and > 0 \", function () {\r",
+                  "    pm.expect(pm.response.json()).to.satisfy(function (response) {\r",
+                  "        return response.every(function (item) {\r",
+                  "            return item.bookingid && typeof item.bookingid == 'number' && item.bookingid > 0;\r",
+                  "\r",
+                  "        });\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate no unexpected/extra fields in response",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if the response contains the expected properties\", function () {\r",
+                  "   var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property('firstname');\r",
+                  "    pm.expect(jsonData).to.have.property('lastname');\r",
+                  "    pm.expect(jsonData).to.have.property('totalprice');\r",
+                  "    pm.expect(jsonData).to.have.property('depositpaid');\r",
+                  "    pm.expect(jsonData).to.have.property('bookingdates');\r",
+                  "  \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code 200 for successful retrieval",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"status code 200 for successf Retrival data \", function () {\r",
+                  " pm.response.to.have.status(200); \r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/7",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code 404 for non-existent booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404, no data found for the given booking id\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/77777777777777777",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "77777777777777777"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code 200 for GET /booking with filters returning empty results",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200, booking with filters returning empty results\", function () \r",
+                  "{ pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking?firstname=NoMatch999",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": "NoMatch999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate response body matches created booking data exactly",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Validate response body has required fields\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"firstname\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"lastname\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"totalprice\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"depositpaid\");\r",
+                  "    pm.expect(jsonData.bookingdates).to.have.property(\"checkin\");\r",
+                  "    pm.expect(jsonData.bookingdates).to.have.property(\"checkout\");\r",
+                  "   \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/4",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate  booking dates object structure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test (\"booking dates structure is correct\", function(){\r",
+                  "pm.expect(pm.response.json().bookingdates).to.have.property(\"checkin\")\r",
+                  "pm.expect(pm.response.json().bookingdates).to.have.property(\"checkout\")\r",
+                  "});\r",
+                  "pm.test(\"booking dates values are correct\", function () {\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkin).to.eql(\"2015-08-103\")\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkout).to.eql(\"2017-08-20\")\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/4",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify API health check endpoint",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"API health check endpoint is up and running\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Created\");\r",
+                  "    pm.expect(pm.response.code).to.eql(201);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/ping",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify response time for GET within SLA/1000",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Verify Response time less than 1000ms\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"just first name \"\r\n   \r\n}"
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "This folder contains test cases for the Booking API GET endpoints using positive, negative, boundary, and edge-case testing. It validates booking retrieval behavior for successful requests, invalid and non-existent booking IDs, filtered searches, and unusual input conditions to ensure the API responds correctly and reliably."
+    },
+    {
+      "name": "Booking Update – PUT/PATCH",
+      "item": [
+        {
+          "name": "Full update (PUT) with valid token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 and data is updated correctly\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"firstname is updated\", function () {\r",
+                  "    pm.expect(pm.response.json().firstname).to.eql(\"updtaed\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"lastname is updated\", function () {    \r",
+                  "    pm.expect(pm.response.json().lastname).to.eql(\"updated\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"use valid token , should return 200 and updated \", function () {\r",
+                  "  pm.expect(pm.environment.get(\"token\")).to.exist;\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "      pm.expect(pm.response.json().firstname).to.eql(\"updtaed\");\r",
+                  "      pm.expect(pm.response.json().lastname).to.eql(\"updated\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "            \r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"updtaed\",\r\n    \"lastname\": \"updated \",\r\n    \"totalprice\": 200,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-14\",\r\n        \"checkout\": \"2026-01-03\"\r\n    },\r\n    \"additionalneeds\": \"updated \"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partial update (PATCH) with valid token, single field",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"partial upadte should be successful\", function () {\r",
+                  "    pm.expect(pm.response.json().firstname).to.eql(\"updtaed222222\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status code 200 \",function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"updtaed222222\"\r\n  \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partial update (PATCH) of  bookingdates object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\" the booking was updated successfully and status code 200\", function () {\r",
+                  "   \r",
+                  "    pm.expect(pm.response.json().bookingdates.checkin).to.eql(\"2022-08-14\");\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkout).to.eql(\"2024-01-03\");\r",
+                  "   \r",
+                  "   \r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2022-08-14\",\r\n        \"checkout\": \"2024-01-03\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Full update (PUT) using Basic Auth instead of token cookie",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response body contains updated data\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.firstname).to.eql(\"basic Auth\");",
+                  "    pm.expect(jsonData.lastname).to.eql(\"basic auth\");",
+                  "    pm.expect(jsonData.totalprice).to.eql(123);",
+                  "    pm.expect(jsonData.depositpaid).to.be.false;",
+                  "});",
+                  "",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"basic Auth\",\r\n    \"lastname\": \"basic auth \",\r\n    \"totalprice\": 123,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-16\",\r\n        \"checkout\": \"2026-01-04\"\r\n    },\r\n    \"additionalneeds\": \"basic auth \"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update without authorization",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test (\"the upadted is forbiden without auth,code satus should be 403\",function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"the response body should be 'Forbidden'\", function () {    \r",
+                  "    pm.expect(pm.response.text()).to.eql('Forbidden');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"without auth - no updated\",\r\n    \"lastname\": \"basic auth \",\r\n    \"totalprice\": 123,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-16\",\r\n        \"checkout\": \"2026-01-04\"\r\n    },\r\n    \"additionalneeds\": \"basic auth \"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update with invalid or expired token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"the response status code is 403/invalid token or missing token ,the upadted is forbidden\", function () { \r",
+                  "    pm.response.to.have.status(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"the response body is Forbidden , No upadted  \", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Forbidden\");  \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"invalid auth - no updated\",\r\n    \"lastname\": \"basic auth \",\r\n    \"totalprice\": 123,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-16\",\r\n        \"checkout\": \"2026-01-04\"\r\n    },\r\n    \"additionalneeds\": \"basic auth \"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update non-existent booking ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Updating non- exist id should return 405, not allowed\", function () {\r",
+                  "    pm.response.to.have.status(405);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response body should contain 'Method Not Allowed'\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include('Method Not Allowed');\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"NON- EXIST ID  \",\r\n    \"lastname\": \"basic auth \",\r\n    \"totalprice\": 123,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-16\",\r\n        \"checkout\": \"2026-01-04\"\r\n    },\r\n    \"additionalneeds\": \"basic auth \"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/999999999999999999",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "999999999999999999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with invalid JSON body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"upadat with invalid data should retuen 400,Bad request \", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"response body should contain 'Bad Request'\", function () { \r",
+                  "    pm.expect(pm.response.text()).to.include('Bad Request');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": 9999999,\r\n    \"lastname\": *********,\r\n    \"totalprice\": &&&&&&&&&,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-16\",\r\n        \"checkout\": \"2026-01-04\"\r\n    },\r\n    \"additionalneeds\": \"basic auth \"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with missing required fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"updated recored with missing fieled should return 400 bad request\", function () {\r",
+                  "    pm.expect(pm.response.code).to.equal(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"response body contain bad request\" ,function (){\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Bad Request\");\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\":\"sahar\" ,\r\n   \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH with completely empty body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"status code 200\",function (){\r",
+                  "    pm.response.to.have.status(200)\r",
+                  "    });\r",
+                  "\r",
+                  "pm.test(\"No data updated  \",function (){\r",
+                  "    pm.expect(pm.response.json().firstname).to.eql(pm.environment.get(\"firstname\"));\r",
+                  "    pm.expect(pm.response.json().lastname).to.eql(pm.environment.get(\"lastname\"));\r",
+                  "    pm.expect(pm.response.json().totalprice).to.eql(pm.environment.get(\"totalprice\"));\r",
+                  "    pm.expect(pm.response.json().depositpaid).to.eql(pm.environment.get(\"depositpaid\"));\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkin).to.eql(pm.environment.get(\"checkin\"));\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkout).to.eql(pm.environment.get(\"checkout\"));\r",
+                  "    }); \r",
+                  "    \r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "put with completely empty body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"PUT with empty body Send Bad Request\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Bad Request\");\r",
+                  "});\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);    \r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/4",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with totalprice at boundary value (0)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if the response status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"the total price = 0 \", function () {\r",
+                  "    pm.expect(pm.response.json().totalprice).to.eql(0);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Sally\",\r\n    \"lastname\": \"Brown\",\r\n    \"totalprice\": 0,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2022-11-08\",\r\n        \"checkout\": \"2024-04-25\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with negative total price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\" total price is updated to negative value\", function () {\r",
+                  "\r",
+                  "    pm.expect(pm.response.json().totalprice).to.equal(-300);\r",
+                  "\r",
+                  "});\r",
+                  "pm.test(\" status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "    pm.test(\"API  should not allaw to update with negative total price,total price should be greater than 0\", function () {\r",
+                  "        pm.expect(pm.response.json().totalprice).to.be.greaterThan(0);\r",
+                  "    });\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Sally\",\r\n    \"lastname\": \"Brown\",\r\n    \"totalprice\": -300,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2022-11-08\",\r\n        \"checkout\": \"2024-04-25\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with checkout date before checkin date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test (\" status Should be bad request is 401 \",function (){\r",
+                  "    pm.expect(pm.response.code).to.eql(401)\r",
+                  "});    \r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"checkout date beforely\",\r\n    \"lastname\": \"Brown\",\r\n    \"totalprice\": 99,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-11-08\",\r\n        \"checkout\": \"2024-04-25\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate response schema after PUT update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Schema validation after updated PUT request\", function () {\r",
+                  "    pm.expect(pm.response.json().firstname).to.be.a(\"string\");\r",
+                  "    pm.expect(pm.response.json().lastname).to.be.a(\"string\");\r",
+                  "    pm.expect(pm.response.json().totalprice).to.be.a(\"number\");\r",
+                  "    pm.expect(pm.response.json().depositpaid).to.be.a(\"boolean\");\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkin).to.be.a(\"string\");\r",
+                  "     pm.expect(pm.response.json().bookingdates.checkout).to.be.a(\"string\");\r",
+                  "});\r",
+                  "\r",
+                  "    pm.test(\"status cose is 200\",function (){\r",
+                  "        pm.expect(pm.response.code).to.eql(200)\r",
+                  "    });\r",
+                  "   \r",
+                  "\r",
+                  "     "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"validation data \",\r\n    \"lastname\": \"Brown\",\r\n    \"totalprice\": 200,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2022-11-08\",\r\n        \"checkout\": \"2024-04-25\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/8",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT with invalid data types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"status code should be  a Bad request \", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "    "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": 12,\r\n    \"lastname\": 2.5,\r\n    \"totalprice\": \"abc\",\r\n    \"depositpaid\": \"abc\",\r\n    \"bookingdates\": {\r\n        \"checkin\": 1234,\r\n        \"checkout\": 122333\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code 200 for successful PUT",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if the booking was updated successfully and status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200)\r",
+                  "});\r",
+                  "\r",
+                  "  "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"sahar\",\r\n    \"lastname\": \"sahar\",\r\n    \"totalprice\": 400,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-02\",\r\n        \"checkout\":\"2026-02-02\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code 403 for update without auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\" verify update without auth ,the Status code willbe  403\", function () {\r",
+                  "    pm.response.to.have.status(403);\r",
+                  "});\r",
+                  "pm.test(\" verify update without auth ,the response body willbe  Forbidden\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"Forbidden\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"sahar\",\r\n    \"lastname\": \"sahar\",\r\n    \"totalprice\": 400,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-02\",\r\n        \"checkout\":\"2026-02-02\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify status code for PATCH on non-existent booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"API Will not allow to update not exist record with PUT method\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(405);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"sahar\",\r\n    \"lastname\": \"sahar\",\r\n    \"totalprice\": 400,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-02\",\r\n        \"checkout\":\"2026-02-02\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10000",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10000"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate PATCH response reflects only changed field",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if the response status code is 200\", function () {   \r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if the firstname is updated\", function () {\r",
+                  "    pm.expect(pm.response.json().firstname).to.eql(\"just first name \");\r",
+                  "\r",
+                  "});  "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"just first name \"\r\n   \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/6",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate PUT response body matches full request payload exactly",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Verify if Response body matches full request\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.eql({\r",
+                  "        \"firstname\": \"exactly\",\r",
+                  "        \"lastname\": \"sahar\",\r",
+                  "        \"totalprice\": 400,\r",
+                  "        \"depositpaid\": true,\r",
+                  "        \"bookingdates\": {\r",
+                  "            \"checkin\": \"2026-01-02\",\r",
+                  "            \"checkout\": \"2026-02-02\"\r",
+                  "        },\r",
+                  "        \"additionalneeds\": \"basic auth \"\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"exactly\",\r\n    \"lastname\": \"sahar\",\r\n    \"totalprice\": 400,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-02\",\r\n        \"checkout\":\"2026-02-02\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify response time for PUT  is within SLA<1000",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Verify if  response time less than 1000 , within SAL\",function(){\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"SLA\",\r\n    \"lastname\": \"sahar\",\r\n    \"totalprice\": 400,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-01-02\",\r\n        \"checkout\":\"2026-02-02\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/10",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "End TO END Testing",
+      "item": [
+        {
+          "name": "Create booking then verify  in GET results",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"status response is 201, creation new record)\",function (){\r",
+                  "\r",
+                  "    pm.response.to.have.status(201) ;\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"recorde for new data is cretaed with wrong code status\",function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    pm.response.to.have.jsonBody({  \r",
+                  "        \"bookingid\": 3012,\r",
+                  "        \"booking\": {\r",
+                  "            \"firstname\": \"sahar\",\r",
+                  "            \"lastname\": \"QA TEST\",\r",
+                  "            \"totalprice\": 88888888,\r",
+                  "            \"depositpaid\": false,\r",
+                  "            \"bookingdates\": {\r",
+                  "                \"checkin\": \"2025-08-06\",\r",
+                  "                \"checkout\": \"2026-08-10\"\r",
+                  "            }\r",
+                  "        }\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"booking\",pm.response.json().bookingid);\r",
+                  "\r",
+                  "           \r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"sahar\",\r\n    \"lastname\": \"QA TEST \",\r\n    \"totalprice\": 88888888,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2025-08-06\",\r\n        \"checkout\": \"2026-08-10\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get previous post",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200, retrived data after post request\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "        });\r",
+                  "\r",
+                  "\r",
+                  "pm.test (\"data as posted \", function () {\r",
+                  "    pm.expect(pm.response.json().firstname).to.eql(\"sahar\");\r",
+                  "    pm.expect(pm.response.json().lastname).to.eql(\"QA TEST\");\r",
+                  "    pm.expect(pm.response.json().totalprice).to.eql(88888888);\r",
+                  "    pm.expect(pm.response.json().depositpaid).to.eql(false);\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkin).to.eql(\"2025-08-06\");\r",
+                  "    pm.expect(pm.response.json().bookingdates.checkout).to.eql(\"2026-08-10\");\r",
+                  "    \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/{{booking}}",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "{{booking}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
